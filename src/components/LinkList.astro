@@ -1,0 +1,24 @@
+---
+import { isLive } from "../lib/util";
+import type { Link } from "../data/site";
+interface Props { links: Link[]; context: string }
+const { links, context } = Astro.props;
+---
+<ul class="links">
+  {links.map((l) =>
+    isLive(l.href) ? (
+      <li>
+        <a class="link-arrow" href={l.href} target="_blank" rel="noopener noreferrer">
+          {l.label}<span class="visually-hidden"> for {context} (opens in a new tab)</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ) : (
+      <li><span class="link-arrow pending"><span class="todo">{l.label} link</span></span></li>
+    )
+  )}
+</ul>
+<style>
+  .links { display: flex; flex-wrap: wrap; gap: 0 var(--space-l); list-style: none; }
+  .pending { color: var(--muted); }
+</style>

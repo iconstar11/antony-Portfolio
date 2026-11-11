@@ -1,0 +1,55 @@
+---
+import { site } from "../data/site";
+import SectionHeader from "./SectionHeader.astro";
+import CaseStudy from "./CaseStudy.astro";
+import Text from "./Text.astro";
+import LinkList from "./LinkList.astro";
+---
+<section id="projects" class="section" aria-labelledby="projects-title">
+  <div class="wrap">
+    <SectionHeader
+      fig="03"
+      label="Projects"
+      id="projects-title"
+      title="Case studies: question → data → decision."
+      lede="Each one starts with a business question and ends with findings someone could act on."
+    />
+
+    <div class="studies">
+      {site.caseStudies.map((s, i) => <CaseStudy study={s} index={i} />)}
+    </div>
+
+    <div class="eng">
+      <h3 class="eyebrow eng-title"><span class="fig">Also built</span> — Engineering projects</h3>
+      <div class="cards">
+        {site.projects.map((p) => (
+          <article class="card proj" aria-labelledby={`p-${p.title}`}>
+            <p class="eyebrow">{p.tagline}</p>
+            <h4 id={`p-${p.title}`}>{p.title}</h4>
+            <p class="desc"><Text value={p.description} /></p>
+            <ul class="chips">{p.tools.map((t) => <li class="chip"><Text value={t} /></li>)}</ul>
+            <LinkList links={p.links} context={p.title} />
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .studies { display: grid; gap: var(--space-xl); }
+  .eng { margin-top: var(--space-2xl); }
+  .eng-title { font-weight: 500; margin-bottom: var(--space-l); }
+  .fig { color: var(--signal); }
+  .cards { display: grid; gap: var(--space-l); }
+  .proj { display: grid; gap: var(--space-s); padding: var(--space-l); align-content: start; position: relative; }
+  .proj::before {
+    content: ""; position: absolute; inset: 0 auto auto 0; width: 48px; height: 3px;
+    background: var(--signal); border-radius: 0 0 3px 0;
+  }
+  h4 { font-size: var(--step-2); }
+  .desc { color: var(--muted); }
+  @media (min-width: 48rem) {
+    .cards { grid-template-columns: 1fr 1fr; }
+  }
+</style>

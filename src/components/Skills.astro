@@ -1,0 +1,93 @@
+---
+import { site } from "../data/site";
+import SectionHeader from "./SectionHeader.astro";
+const { skills } = site;
+
+// Count skills per group for the little bar chart.
+const groups = Object.entries(
+  skills.reduce<Record<string, number>>((acc, s) => ((acc[s.group] = (acc[s.group] ?? 0) + 1), acc), {})
+).sort((a, b) => b[1] - a[1]);
+const max = Math.max(...groups.map(([, n]) => n));
+---
+<section id="skills" class="section" aria-labelledby="skills-title">
+  <div class="wrap">
+    <SectionHeader
+      fig="02"
+      label="Skills"
+      id="skills-title"
+      title="The toolkit."
+      lede="Python, SQL and Excel do the heavy lifting. Statistics and clear visuals turn the output into something a business can use."
+    />
+    <div class="grid">
+      <div class="card table-card">
+        <p class="query mono" aria-hidden="true"><span class="kw">SELECT</span> skill, type, grp <span class="kw">FROM</span> antony.skills;</p>
+        <div class="table-scroll">
+          <table>
+            <caption class="visually-hidden">Skills by type and group</caption>
+            <thead>
+              <tr><th scope="col">skill</th><th scope="col">type</th><th scope="col">group</th></tr>
+            </thead>
+            <tbody>
+              {skills.map((s) => (
+                <tr>
+                  <th scope="row">{s.skill}</th>
+                  <td class="mono">{s.type}</td>
+                  <td><span class={`chip g-${s.group}`}>{s.group}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="rows mono">{skills.length} rows in set</p>
+      </div>
+
+      <figure class="card bars">
+        <figcaption class="eyebrow">Skills by group</figcaption>
+        <ul>
+          {groups.map(([g, n]) => (
+            <li>
+              <span class="label mono">{g}</span>
+              <span class="track" aria-hidden="true"><span class={`fill g-${g}`} style={`width:${(n / max) * 100}%`}></span></span>
+              <span class="n mono">{n}</span>
+            </li>
+          ))}
+        </ul>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid { display: grid; gap: var(--space-l); }
+  .table-card { padding: var(--space-m) 0 var(--space-s); overflow: hidden; }
+  .query { padding: 0 var(--space-m) var(--space-s); font-size: var(--step--1); color: var(--muted); overflow-wrap: anywhere; }
+  .kw { color: var(--signal); font-weight: 600; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: var(--step-0); }
+  th, td { text-align: left; padding: 0.6rem var(--space-m); border-top: 1px solid var(--border); }
+  thead th {
+    font-family: var(--font-mono); font-size: var(--step--1); font-weight: 500;
+    color: var(--muted); background: var(--surface-2); text-transform: lowercase;
+  }
+  tbody th { font-weight: 600; }
+  tbody td.mono { color: var(--muted); font-size: var(--step--1); }
+  tbody tr:hover { background: var(--signal-soft); }
+  .rows { padding: var(--space-s) var(--space-m) 0; border-top: 1px solid var(--border); font-size: var(--step--1); color: var(--muted); }
+
+  .chip.g-core { color: var(--signal); border-color: color-mix(in srgb, var(--signal) 35%, transparent); background: var(--signal-soft); }
+  .chip.g-analysis { color: var(--highlight); border-color: color-mix(in srgb, var(--highlight) 35%, transparent); background: var(--highlight-soft); }
+
+  .bars { margin: 0; padding: var(--space-l); align-self: start; }
+  .bars ul { list-style: none; display: grid; gap: var(--space-m); margin-top: var(--space-m); }
+  .bars li { display: grid; grid-template-columns: 5.5rem 1fr 2ch; align-items: center; gap: var(--space-s); }
+  .label { font-size: var(--step--1); color: var(--muted); }
+  .track { height: 10px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+  .fill { display: block; height: 100%; background: var(--muted); border-radius: 2px; }
+  .fill.g-core { background: var(--signal); }
+  .fill.g-analysis { background: var(--highlight); }
+  .n { text-align: right; font-weight: 600; }
+
+  @media (min-width: 60rem) {
+    .grid { grid-template-columns: 8fr 4fr; }
+  }
+</style>

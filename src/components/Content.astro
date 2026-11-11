@@ -1,0 +1,38 @@
+---
+import { site } from "../data/site";
+import SectionHeader from "./SectionHeader.astro";
+import Text from "./Text.astro";
+const { content } = site;
+---
+<section id="content" class="section" aria-labelledby="content-title">
+  <div class="wrap">
+    <SectionHeader fig="06" label="Content" id="content-title" title="On YouTube." lede={content.intro} />
+    <ul class="channels">
+      {content.channels.map((c) => (
+        <li class="card ch">
+          <svg class="play" viewBox="0 0 40 28" width="40" height="28" aria-hidden="true">
+            <rect width="40" height="28" rx="7" fill="var(--signal-soft)" stroke="var(--signal)" />
+            <path d="M16 9v10l9-5z" fill="var(--signal)" />
+          </svg>
+          <div>
+            <h3>{c.name}</h3>
+            <p class="handle mono">{c.handle}</p>
+          </div>
+          <p class="desc"><Text value={c.description} /></p>
+          <a class="link-arrow" href={c.href} target="_blank" rel="noopener noreferrer">
+            Watch on YouTube<span class="visually-hidden">: {c.name} (opens in a new tab)</span> <span aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .channels { list-style: none; display: grid; gap: var(--space-l); }
+  .ch { display: grid; gap: var(--space-s); padding: var(--space-l); align-content: start; }
+  h3 { font-size: var(--step-1); margin-top: var(--space-xs); }
+  .handle { font-size: var(--step--1); color: var(--muted); }
+  .desc { color: var(--muted); }
+  @media (min-width: 48rem) { .channels { grid-template-columns: 1fr 1fr; } }
+</style>

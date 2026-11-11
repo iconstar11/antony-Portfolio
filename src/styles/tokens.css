@@ -1,0 +1,102 @@
+/* ─── Design tokens ─────────────────────────────────────────────
+   Light is the no-JS default; dark applies via system preference
+   or the toggle (data-theme on <html>).
+   ──────────────────────────────────────────────────────────── */
+
+/* Metric-adjusted fallbacks keep text the same size while web fonts load (no layout shift). */
+@font-face {
+  font-family: "Schibsted Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 101%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "JetBrains Fallback";
+  src: local("Consolas"), local("Menlo"), local("Courier New");
+  size-adjust: 109%;
+  ascent-override: 93%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --font-sans: "Schibsted Grotesk Variable", "Schibsted Fallback", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Fallback", ui-monospace, monospace;
+
+  /* Type scale (fluid) */
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --step-1: clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.32rem + 0.9vw, 2rem);
+  --step-3: clamp(1.9rem, 1.5rem + 2vw, 3rem);
+  --step-4: clamp(2.5rem, 1.7rem + 4vw, 4.75rem);
+
+  /* Space */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem;
+  --space-l: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
+
+  --radius: 6px;
+  --radius-l: 12px;
+  --max: 72rem;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+
+  /* Light palette ("report paper") */
+  --bg: #f6f4ee;
+  --surface: #ffffff;
+  --surface-2: #efece4;
+  --text: #16191d;
+  --muted: #565e68;
+  --border: #dcd8cd;
+  --grid: rgba(22, 25, 29, 0.07);
+  --signal: #0b7354;
+  --signal-soft: rgba(11, 115, 84, 0.1);
+  --on-signal: #ffffff;
+  --highlight: #8f5400;
+  --highlight-soft: rgba(196, 122, 0, 0.12);
+  --shadow: 0 1px 2px rgba(22, 25, 29, 0.05), 0 8px 24px -12px rgba(22, 25, 29, 0.15);
+  color-scheme: light;
+}
+
+/* Dark palette ("ink") — system preference when no explicit choice … */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1014;
+    --surface: #151a21;
+    --surface-2: #1b2129;
+    --text: #e8e6e1;
+    --muted: #9aa3ae;
+    --border: #28303a;
+    --grid: rgba(255, 255, 255, 0.05);
+    --signal: #4fd1a5;
+    --signal-soft: rgba(79, 209, 165, 0.12);
+    --on-signal: #0d1014;
+    --highlight: #f2b544;
+    --highlight-soft: rgba(242, 181, 68, 0.12);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+/* … or explicit toggle. */
+:root[data-theme="dark"] {
+  --bg: #0d1014;
+  --surface: #151a21;
+  --surface-2: #1b2129;
+  --text: #e8e6e1;
+  --muted: #9aa3ae;
+  --border: #28303a;
+  --grid: rgba(255, 255, 255, 0.05);
+  --signal: #4fd1a5;
+  --signal-soft: rgba(79, 209, 165, 0.12);
+  --on-signal: #0d1014;
+  --highlight: #f2b544;
+  --highlight-soft: rgba(242, 181, 68, 0.12);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}

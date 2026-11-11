@@ -1,0 +1,7 @@
+---
+/** Renders a content string; any "TODO…" part gets the visible TODO badge. */
+import { splitTodo } from "../lib/util";
+interface Props { value: string }
+const { text, todo } = splitTodo(Astro.props.value);
+---
+{text}{text && todo !== null ? " " : ""}{todo !== null && <span class="todo">{todo || "fill in"}</span>}

@@ -1,0 +1,92 @@
+---
+import "@fontsource-variable/schibsted-grotesk/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
+import "../styles/global.css";
+import sansWoff2 from "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url";
+import monoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
+import { site } from "../data/site";
+
+const { person, seo, social, url } = site;
+const canonical = new URL(Astro.url.pathname, url).href;
+const ogImage = new URL(seo.ogImage, url).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: person.name,
+  url,
+  image: ogImage,
+  jobTitle: person.role,
+  description: seo.description,
+  email: `mailto:${person.email}`,
+  ...(person.location ? { address: { "@type": "PostalAddress", addressLocality: person.location } } : {}),
+  alumniOf: { "@type": "CollegeOrUniversity", name: "Daystar University" },
+  knowsAbout: site.skills.map((s) => s.skill),
+  sameAs: [
+    social.linkedin,
+    social.github,
+    ...site.content.channels.map((c) => c.href),
+  ].filter(Boolean),
+};
+---
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta name="author" content={person.name} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Theme: runs before paint so there is no flash of the wrong theme -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t !== "light" && t !== "dark") {
+            t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1014" media="(prefers-color-scheme: dark)" />
+
+    <link rel="preload" href={sansWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoWoff2} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={person.name} />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={seo.ogImageAlt} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="profile:first_name" content="Antony" />
+    <meta property="profile:last_name" content="Kinuthia" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={seo.ogImageAlt} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

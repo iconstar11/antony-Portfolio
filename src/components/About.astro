@@ -1,0 +1,46 @@
+---
+import { site } from "../data/site";
+import SectionHeader from "./SectionHeader.astro";
+import Text from "./Text.astro";
+const { about } = site;
+---
+<section id="about" class="section" aria-labelledby="about-title">
+  <div class="wrap">
+    <SectionHeader fig="01" label="About" id="about-title" title="Analyst first, engineer underneath." />
+    <div class="grid">
+      <div class="prose">
+        {about.paragraphs.map((p) => <p><Text value={p} /></p>)}
+      </div>
+      <div class="card facts">
+        <p class="eyebrow">describe(antony)</p>
+        <dl>
+          {about.facts.map((f) => (
+            <div class="row">
+              <dt class="mono">{f.label}</dt>
+              <dd><Text value={f.value} /></dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid { display: grid; gap: var(--space-xl); }
+  .prose { display: grid; gap: var(--space-m); font-size: var(--step-1); line-height: 1.55; max-width: 62ch; }
+  .prose p:first-child { color: var(--text); }
+  .prose p + p { color: var(--muted); font-size: var(--step-0); line-height: 1.65; }
+  .facts { padding: var(--space-l); align-self: start; }
+  dl { margin: var(--space-s) 0 0; }
+  .row {
+    display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-m);
+    padding-block: var(--space-s);
+    border-top: 1px dashed var(--border);
+  }
+  dt { font-size: var(--step--1); color: var(--muted); padding-top: 0.15em; }
+  dd { margin: 0; font-weight: 550; }
+  @media (min-width: 60rem) {
+    .grid { grid-template-columns: 7fr 5fr; gap: var(--space-2xl); }
+  }
+</style>

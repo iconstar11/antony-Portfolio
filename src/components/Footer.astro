@@ -1,0 +1,18 @@
+---
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+const built = new Date().toISOString().slice(0, 10);
+---
+<footer class="footer">
+  <div class="wrap row mono">
+    <p>© {year} {site.person.name}</p>
+    <p>Built with Astro · no trackers · updated <time datetime={built}>{built}</time></p>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); padding-block: var(--space-l) var(--space-xl); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-s) var(--space-l); justify-content: space-between; align-items: center; font-size: var(--step--1); color: var(--muted); }
+  a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); }
+</style>

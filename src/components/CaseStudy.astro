@@ -1,0 +1,102 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { CaseStudy } from "../data/site";
+import Text from "./Text.astro";
+import LinkList from "./LinkList.astro";
+import { isLive, pad2 } from "../lib/util";
+
+interface Props { study: CaseStudy; index: number }
+const { study, index } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/projects/*.{png,jpg,jpeg,webp,avif}",
+  { eager: true }
+);
+const img = images[`../assets/projects/${study.image}`]?.default;
+if (!img) {
+  throw new Error(`Case study image "${study.image}" not found in src/assets/projects/`);
+}
+const fig = `3.${index + 1}`;
+const headingId = `cs-${index + 1}`;
+---
+<article class="cs card" aria-labelledby={headingId}>
+  <figure class="chart">
+    <Picture
+      src={img}
+      alt={study.imageAlt.replace(/^TODO:?\s*/, "")}
+      formats={["avif", "webp"]}
+      widths={[480, 800, 1200, 1600]}
+      sizes="(min-width: 64rem) 34rem, (min-width: 40rem) 90vw, 100vw"
+      class="img"
+    />
+    <figcaption class="mono"><span class="fig">Fig. {fig}</span> <Text value={study.caption} /></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="eyebrow">Case study · {pad2(index + 1)}</p>
+    <h3 id={headingId}>{study.title}</h3>
+
+    <dl class="meta">
+      <div><dt>Problem</dt><dd><Text value={study.problem} /></dd></div>
+      <div>
+        <dt>Dataset</dt>
+        <dd>
+          {isLive(study.dataset.href)
+            ? <a href={study.dataset.href} target="_blank" rel="noopener noreferrer"><Text value={study.dataset.name} /></a>
+            : <Text value={study.dataset.name} />}
+          {study.dataset.source && <span class="src"> · <Text value={study.dataset.source} /></span>}
+        </dd>
+      </div>
+      <div>
+        <dt>Tools</dt>
+        <dd>
+          <ul class="chips">
+            {study.tools.map((t) => <li class="chip"><Text value={t} /></li>)}
+          </ul>
+        </dd>
+      </div>
+    </dl>
+
+    <h4 class="eyebrow ins-title">Key insights</h4>
+    <ol class="insights">
+      {study.insights.map((i, n) => (
+        <li><span class="num mono" aria-hidden="true">{pad2(n + 1)}</span><span><Text value={i} /></span></li>
+      ))}
+    </ol>
+
+    <LinkList links={study.links} context={study.title} />
+  </div>
+</article>
+
+<style>
+  .cs { display: grid; overflow: hidden; }
+  .chart { margin: 0; background: var(--surface-2); border-bottom: 1px solid var(--border); }
+  .chart :global(.img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .chart :global(picture) { display: block; }
+  figcaption { padding: var(--space-s) var(--space-m); font-size: var(--step--1); color: var(--muted); }
+  .fig { color: var(--signal); margin-right: 0.4em; }
+  .body { display: grid; gap: var(--space-m); padding: var(--space-l); align-content: start; }
+  h3 { font-size: var(--step-2); }
+  .meta { display: grid; gap: var(--space-s); margin: 0; }
+  .meta > div { display: grid; gap: var(--space-2xs); padding-top: var(--space-s); border-top: 1px dashed var(--border); }
+  dt { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  dd { margin: 0; }
+  .src { color: var(--muted); }
+  .ins-title { margin-top: var(--space-xs); font-weight: 500; }
+  .insights { list-style: none; display: grid; gap: var(--space-s); }
+  .insights li {
+    display: grid; grid-template-columns: auto 1fr; gap: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    background: var(--highlight-soft);
+    border-left: 3px solid var(--highlight);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .num { color: var(--highlight); font-weight: 700; font-size: var(--step--1); padding-top: 0.2em; }
+
+  @media (min-width: 64rem) {
+    .cs { grid-template-columns: 1.1fr 1fr; }
+    .chart { border-bottom: 0; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+    .body { padding: var(--space-xl); }
+  }
+</style>

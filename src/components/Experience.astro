@@ -1,0 +1,110 @@
+---
+import { site } from "../data/site";
+import SectionHeader from "./SectionHeader.astro";
+import Text from "./Text.astro";
+import { formatYm, toYearFloat } from "../lib/util";
+
+const roles = site.experience;
+const minY = Math.floor(Math.min(...roles.map((r) => toYearFloat(r.start, "start"))));
+const maxY = Math.ceil(Math.max(...roles.map((r) => toYearFloat(r.end, "end"))));
+const span = maxY - minY;
+const years = Array.from({ length: span + 1 }, (_, i) => minY + i);
+const pos = (s: string, e: string) => {
+  const a = toYearFloat(s, "start");
+  const b = toYearFloat(e, "end");
+  return `left:${((a - minY) / span) * 100}%;width:${((b - a) / span) * 100}%`;
+};
+---
+<section id="experience" class="section" aria-labelledby="experience-title">
+  <div class="wrap">
+    <SectionHeader fig="04" label="Experience" id="experience-title" title="Timeline." />
+
+    <figure class="card gantt" aria-hidden="true" style={`--cols:${span}`}>
+      <div class="rows">
+        {roles.map((r) => (
+          <div class="g-row">
+            <span class="g-label mono">{r.org}</span>
+            <span class="g-track"><span class={`g-bar ${r.kind}`} style={pos(r.start, r.end)}></span></span>
+          </div>
+        ))}
+      </div>
+      <div class="g-axis mono">
+        <span></span>
+        <span class="ticks">
+          {years.map((y, i) => (
+            <span style={`left:${(i / span) * 100}%`}><span class="full">{y}</span><span class="short">'{String(y).slice(2)}</span></span>
+          ))}
+        </span>
+      </div>
+      <figcaption class="legend mono">
+        <span><i class="sw work"></i>work</span>
+        <span><i class="sw education"></i>education</span>
+      </figcaption>
+    </figure>
+
+    <ol class="roles">
+      {roles.map((r) => (
+        <li class="role">
+          <p class="when mono">
+            <time datetime={r.start}>{formatYm(r.start, "start")}</time> –{" "}
+            {r.end === "present" ? "Present" : <time datetime={r.end}>{formatYm(r.end, "end")}</time>}
+          </p>
+          <div>
+            <h3>{r.title}</h3>
+            <p class="org">{r.org}{r.location && ` · ${r.location}`}</p>
+            <ul class="points">
+              {r.points.map((p) => <li><Text value={p} /></li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .gantt { margin: 0 0 var(--space-xl); padding: var(--space-l); }
+  .rows { display: grid; gap: var(--space-s); }
+  .g-row, .g-axis { display: grid; gap: var(--space-2xs); }
+  .g-axis > span:first-child { display: none; }
+  .full { display: none; }
+  .g-label { font-size: var(--step--1); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .g-track {
+    position: relative; height: 18px;
+    background: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px calc(100% / var(--cols)));
+  }
+  .g-bar { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+  .g-bar.work { background: var(--signal); }
+  .g-bar.education { background: var(--highlight); opacity: 0.85; }
+  .g-axis { margin-top: var(--space-s); }
+  .ticks { position: relative; height: 1.4em; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); }
+  .ticks > span { position: absolute; top: 4px; transform: translateX(-50%); }
+  .ticks > span:first-child { transform: none; }
+  .ticks > span:last-child { transform: translateX(-100%); }
+  .legend { display: flex; gap: var(--space-l); margin-top: var(--space-m); font-size: var(--step--1); color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 0.5em; }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 2px; }
+  .sw.work { background: var(--signal); }
+  .sw.education { background: var(--highlight); }
+
+  .roles { list-style: none; display: grid; }
+  .role {
+    display: grid; gap: var(--space-xs);
+    padding-block: var(--space-l);
+    border-top: 1px solid var(--border);
+  }
+  .when { font-size: var(--step--1); color: var(--signal); }
+  h3 { font-size: var(--step-1); }
+  .org { color: var(--muted); margin-top: var(--space-2xs); }
+  .points { margin-top: var(--space-s); padding-left: 1.1rem; display: grid; gap: var(--space-2xs); }
+  .points li::marker { color: var(--signal); }
+  @media (min-width: 40rem) {
+    .g-row, .g-axis { grid-template-columns: 10rem 1fr; gap: var(--space-m); align-items: center; }
+    .g-axis > span:first-child { display: block; }
+    .full { display: inline; }
+    .short { display: none; }
+  }
+  @media (min-width: 48rem) {
+    .role { grid-template-columns: 13rem 1fr; gap: var(--space-l); }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import { site } from "../data/site";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+<header class="header">
+  <div class="wrap bar">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="var(--text)" />
+        <polyline points="5,23 11,18 16,20 21,12 27,8" fill="none" stroke="var(--bg)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="27" cy="8" r="2.6" fill="var(--highlight)" />
+      </svg>
+      <span class="brand-name">{site.person.shortName}</span><span class="visually-hidden">, back to top</span>
+    </a>
+    <nav aria-label="Primary" class="nav">
+      <ul>
+        {site.nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "brand toggle" "nav nav";
+    align-items: center;
+    column-gap: var(--space-m);
+    padding-top: var(--space-xs);
+  }
+  .brand {
+    grid-area: brand;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-s);
+    min-height: 44px;
+    text-decoration: none;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+  .mark { flex: none; }
+  .nav { grid-area: nav; margin-inline: calc(var(--gutter) * -1); }
+  .nav ul {
+    display: flex;
+    gap: var(--space-2xs);
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-inline: calc(var(--gutter) - 0.6rem);
+    padding-bottom: var(--space-2xs);
+  }
+  .nav ul::-webkit-scrollbar { display: none; }
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: var(--radius);
+  }
+  .nav a:hover { color: var(--text); background: var(--surface-2); }
+
+  @media (min-width: 60rem) {
+    .bar {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "brand nav toggle";
+      padding-block: var(--space-xs);
+    }
+    .nav { margin: 0; justify-self: end; }
+    .nav ul { padding: 0; }
+  }
+</style>
