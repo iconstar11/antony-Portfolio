@@ -5,6 +5,14 @@ import "../styles/global.css";
 import sansWoff2 from "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url";
 import monoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
 import { site } from "../data/site";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const photos = import.meta.glob<{ default: ImageMetadata }>("../assets/about/*.{png,jpg,jpeg,webp,avif}", { eager: true });
+const photoSrc = site.about.photo ? photos[`../assets/about/${site.about.photo}`]?.default : undefined;
+const photoUrl = photoSrc
+  ? new URL((await getImage({ src: photoSrc, width: 600, format: "jpg" })).src, site.url).href
+  : undefined;
 
 const { person, seo, social, url } = site;
 const canonical = new URL(Astro.url.pathname, url).href;
@@ -15,13 +23,14 @@ const jsonLd = {
   "@type": "Person",
   name: person.name,
   url,
-  image: ogImage,
+  image: photoUrl ?? ogImage,
   jobTitle: person.role,
   description: seo.description,
   email: `mailto:${person.email}`,
   ...(person.location ? { address: { "@type": "PostalAddress", addressLocality: person.location } } : {}),
   alumniOf: { "@type": "CollegeOrUniversity", name: "Daystar University" },
   knowsAbout: site.skills.map((s) => s.skill),
+  knowsLanguage: ["English", "Swahili"],
   sameAs: [
     social.linkedin,
     social.github,

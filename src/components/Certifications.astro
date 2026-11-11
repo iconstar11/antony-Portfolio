@@ -2,6 +2,7 @@
 import { site } from "../data/site";
 import SectionHeader from "./SectionHeader.astro";
 import { isLive } from "../lib/util";
+import Text from "./Text.astro";
 ---
 <section id="certifications" class="section" aria-labelledby="certs-title">
   <div class="wrap">
@@ -9,14 +10,14 @@ import { isLive } from "../lib/util";
     <ul class="certs card">
       {site.certifications.map((c) => (
         <li class:list={["cert", c.status]}>
-          <span class="date mono">{c.date}</span>
+          <span class="date mono"><Text value={c.date} /></span>
           <div class="what">
             <h3>
               {isLive(c.href)
                 ? <a href={c.href} target="_blank" rel="noopener noreferrer">{c.name}<span class="visually-hidden"> credential (opens in a new tab)</span></a>
                 : c.name}
             </h3>
-            <p class="issuer">{c.issuer}</p>
+            <p class="issuer"><Text value={c.issuer} /></p>
           </div>
           <span class="status mono">{c.status === "completed" ? "completed" : "in progress"}</span>
         </li>

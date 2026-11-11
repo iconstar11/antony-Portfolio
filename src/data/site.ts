@@ -115,16 +115,20 @@ export const site = {
 
   /** KPI tiles in the hero panel. Keep values short. */
   kpis: [
-    { value: "16", unit: "mo", label: "Industry experience" },
-    { value: "02", unit: "", label: "Certifications earned" },
-    { value: "02", unit: "", label: "Products built" },
-    { value: "02", unit: "", label: "YouTube channels" },
+    { value: "3+", unit: "yrs", label: "Hands-on data work" },
+    { value: "16", unit: "mo", label: "Software eng. internship" },
+    { value: "04", unit: "", label: "Certifications earned" },
+    { value: "40+", unit: "", label: "Staff supported" },
   ],
 
   about: {
+    /** Photo in src/assets/about/ (portrait, 4:5). Set to "" to hide. */
+    photo: "photo.jpg",
+    photoAlt: "Portrait of Antony N. Kinuthia, smiling, wearing a navy polo shirt",
     paragraphs: [
       "I'm a Data Analyst with a Computer Science degree from Daystar University and hands-on experience building business solutions on clients' operational and financial data.",
       "As a Software Engineering Intern at Premier Analytics I worked with Microsoft Power Platform and Dynamics 365 Business Central, where I saw how much value sits in data that companies already collect. Now I focus on the analysis: cleaning messy datasets, asking the right questions with SQL and pandas, and presenting answers clearly.",
+      "Since 2023 I've also done freelance AI data work: transcribing and labelling speech data in English and Swahili, masking personal information to GDPR/HIPAA standards, and scoring LLM responses against quality rubrics. It taught me that the quality of an analysis depends on the data underneath it.",
       "Outside of client work I build products (Nestly) and automation (VideoToClips), and I run two YouTube channels.",
     ],
     facts: [
@@ -132,6 +136,7 @@ export const site = {
       { label: "Core stack", value: "Python · SQL · Excel" },
       { label: "Degree", value: "BSc Computer Science, 2025" },
       { label: "Background", value: "Software engineering" },
+      { label: "Languages", value: "English · Swahili" },
     ],
   },
 
@@ -141,11 +146,14 @@ export const site = {
     { skill: "NumPy", type: "library", group: "core" },
     { skill: "SQL", type: "language", group: "core" },
     { skill: "Excel", type: "tool", group: "core" },
+    { skill: "SQLite", type: "database", group: "core" },
     { skill: "Statistics", type: "method", group: "analysis" },
     { skill: "Data Cleaning", type: "method", group: "analysis" },
     { skill: "Data Visualization", type: "method", group: "analysis" },
     { skill: "Business Analytics", type: "domain", group: "analysis" },
+    { skill: "Data Validation & QA", type: "method", group: "analysis" },
     { skill: "Power Platform", type: "platform", group: "platform" },
+    { skill: "Dataverse", type: "database", group: "platform" },
   ],
 
   /** Data case studies, shown first in Projects. */
@@ -212,8 +220,8 @@ export const site = {
       title: "VideoToClips",
       tagline: "Automated long-form → shorts pipeline",
       description:
-        "A pipeline that turns long-form video into short-form clips automatically, using LLM APIs to pick moments and FFmpeg to cut and render them. TODO: confirm details / add output numbers.",
-      tools: ["Python", "FFmpeg", "LLM APIs"],
+        "Python pipelines that transcribe long-form video with OpenAI Whisper, align segments to the millisecond, and cut shorts with FFmpeg. Jobs are tracked in SQLite with error logging and recovery, so interrupted batches lose no data.",
+      tools: ["Python", "FFmpeg", "Whisper API", "SQLite", "SQLAlchemy"],
       links: [{ label: "GitHub", href: "TODO" }],
     },
   ] satisfies Project[],
@@ -226,18 +234,47 @@ export const site = {
       start: "2025-04",
       end: "2026-07",
       points: [
-        "Built business solutions on Microsoft Power Platform and Dynamics 365 Business Central.",
-        "Worked with clients' operational and financial data to support reporting and day-to-day processes.",
-        "TODO: Add 1–2 measurable outcomes (e.g. reports automated, hours saved).",
+        "Built information management portals and Dataverse databases on Microsoft Power Platform, consolidating multi-departmental records into structured relational tables.",
+        "Wrote Python data operations and automated workflows that consolidated information across business units with zero data loss.",
+        "Designed input-validation rules and error-checking scripts that eliminated duplicate and malformed entries before database ingestion.",
+        "Turned legacy paper and spreadsheet workflows into digital forms, automated status alerts and reporting dashboards.",
+        "Configured role-based access and row-level security (Entra ID) for sensitive records, and supported 40+ staff with access, troubleshooting and user guides.",
+      ],
+    },
+    {
+      org: "Upwork (freelance)",
+      title: "AI Data Annotation & Speech Specialist",
+      kind: "work",
+      start: "2023-01",
+      end: "present",
+      points: [
+        "Transcribed multi-speaker and call-centre audio into structured text, with millisecond-level speaker diarization and event tagging.",
+        "Identified and masked personal information (names, contacts, financial and medical details) across text and audio, in line with GDPR and HIPAA.",
+        "Evaluated and ranked LLM responses against multi-dimensional rubrics (accuracy, reasoning, safety, instruction following), and labelled intents, entities and sentiment.",
+        "Recorded bilingual English–Swahili conversational speech data for banking, healthcare and customer-service domains.",
+      ],
+    },
+    {
+      org: "Small business clients",
+      title: "ICT Support Technician (part-time)",
+      kind: "work",
+      start: "2023-01",
+      end: "2025-03",
+      points: [
+        "Set up and maintained hardware, Ubuntu/Windows systems and local networks for small businesses.",
+        "Created backup routines that protected accounting records and business files, and trained staff on digital tools.",
       ],
     },
     {
       org: "Daystar University",
       title: "BSc Computer Science",
       kind: "education",
-      start: "2022",
-      end: "2025",
-      points: ["TODO: Optional: relevant coursework, project or honours."],
+      start: "2021-08",
+      end: "2025-04",
+      points: [
+        "Coursework: Database Systems, Data Structures & Algorithms, Software Engineering, Information Security.",
+        "Capstone: a database-backed web application with authentication, role-based permissions and dynamic reporting.",
+      ],
     },
   ] satisfies Role[],
 
@@ -260,6 +297,20 @@ export const site = {
       name: "Supervised Machine Learning: Regression and Classification",
       issuer: "DeepLearning.AI · Stanford",
       date: "Aug 2024",
+      status: "completed",
+      href: "",
+    },
+    {
+      name: "Microsoft Excel: Data Modeling, Lookups & Pivot Tables",
+      issuer: "TODO: issuer",
+      date: "TODO: date",
+      status: "completed",
+      href: "",
+    },
+    {
+      name: "Linux Operating System (Foundation)",
+      issuer: "StudySection",
+      date: "Jun 2021",
       status: "completed",
       href: "",
     },

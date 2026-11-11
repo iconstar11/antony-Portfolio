@@ -2,7 +2,12 @@
 import { site } from "../data/site";
 import SectionHeader from "./SectionHeader.astro";
 import Text from "./Text.astro";
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
 const { about } = site;
+const photos = import.meta.glob<{ default: ImageMetadata }>("../assets/about/*.{png,jpg,jpeg,webp,avif}", { eager: true });
+const photo = about.photo ? photos[`../assets/about/${about.photo}`]?.default : undefined;
+if (about.photo && !photo) throw new Error(`About photo "${about.photo}" not found in src/assets/about/`);
 ---
 <section id="about" class="section" aria-labelledby="about-title">
   <div class="wrap">
@@ -11,6 +16,19 @@ const { about } = site;
       <div class="prose">
         {about.paragraphs.map((p) => <p><Text value={p} /></p>)}
       </div>
+      {photo && (
+        <figure class="photo">
+          <Picture
+            src={photo}
+            alt={about.photoAlt}
+            formats={["avif", "webp"]}
+            widths={[280, 420, 560, 720]}
+            sizes="(min-width: 60rem) 24rem, 18rem"
+            class="img"
+          />
+          <figcaption class="mono"><span class="fig">Fig. 1.1</span> {site.person.name}</figcaption>
+        </figure>
+      )}
       <div class="card facts">
         <p class="eyebrow">describe(antony)</p>
         <dl>
@@ -27,11 +45,19 @@ const { about } = site;
 </section>
 
 <style>
-  .grid { display: grid; gap: var(--space-xl); }
-  .prose { display: grid; gap: var(--space-m); font-size: var(--step-1); line-height: 1.55; max-width: 62ch; }
+  .grid { display: grid; gap: var(--space-xl); grid-template-areas: "photo" "prose" "facts"; }
+  .photo { grid-area: photo; margin: 0; max-width: 18rem; }
+  .photo :global(.img) {
+    width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+    border-radius: var(--radius-l); border: 1px solid var(--border);
+    box-shadow: var(--shadow); background: var(--surface-2);
+  }
+  .photo figcaption { margin-top: var(--space-xs); font-size: var(--step--1); color: var(--muted); }
+  .fig { color: var(--signal); margin-right: 0.4em; }
+  .prose { grid-area: prose; display: grid; gap: var(--space-m); font-size: var(--step-1); line-height: 1.55; max-width: 62ch; }
   .prose p:first-child { color: var(--text); }
   .prose p + p { color: var(--muted); font-size: var(--step-0); line-height: 1.65; }
-  .facts { padding: var(--space-l); align-self: start; }
+  .facts { grid-area: facts; padding: var(--space-l); align-self: start; }
   dl { margin: var(--space-s) 0 0; }
   .row {
     display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-m);
@@ -41,6 +67,12 @@ const { about } = site;
   dt { font-size: var(--step--1); color: var(--muted); padding-top: 0.15em; }
   dd { margin: 0; font-weight: 550; }
   @media (min-width: 60rem) {
-    .grid { grid-template-columns: 7fr 5fr; gap: var(--space-2xl); }
+    .grid {
+      grid-template-columns: 7fr 5fr;
+      grid-template-areas: "prose photo" "prose facts";
+      grid-template-rows: auto 1fr;
+      column-gap: var(--space-2xl);
+    }
+    .photo { max-width: 24rem; }
   }
 </style>
