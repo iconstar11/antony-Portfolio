@@ -30,7 +30,7 @@ const jsonLd = {
   ...(person.location ? { address: { "@type": "PostalAddress", addressLocality: person.location } } : {}),
   alumniOf: { "@type": "CollegeOrUniversity", name: "Daystar University" },
   knowsAbout: site.skills.map((s) => s.skill),
-  knowsLanguage: ["English", "Swahili"],
+  knowsLanguage: person.languages,
   sameAs: [
     social.linkedin,
     social.github,

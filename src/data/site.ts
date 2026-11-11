@@ -80,6 +80,8 @@ export const site = {
     /** Matches the LinkedIn headline. */
     headline: "Data Analyst | Python · SQL · Excel | Turning Business Data into Decisions",
     email: "antony@nestlyafrica.cloud",
+    /** Spoken languages (used in search-engine structured data). */
+    languages: ["English", "Swahili", "German"],
     /** Leave empty ("") to hide the location everywhere. */
     location: "",
   },
@@ -136,7 +138,7 @@ export const site = {
       { label: "Core stack", value: "Python · SQL · Excel" },
       { label: "Degree", value: "BSc Computer Science, 2025" },
       { label: "Background", value: "Software engineering" },
-      { label: "Languages", value: "English · Swahili" },
+      { label: "Languages", value: "English · Swahili · German" },
     ],
   },
 
