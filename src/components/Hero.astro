@@ -122,19 +122,19 @@ const [lx, ly] = pts[pts.length - 1];
   .plot::after {
     content: ""; position: absolute; inset: -12px -12px -4px 0;
     background: var(--bg); transform-origin: right center;
-    animation: reveal 1.8s 0.2s cubic-bezier(.6,.1,.2,1) forwards;
+    animation: reveal 0.9s cubic-bezier(.6,.1,.2,1) forwards;
   }
   .end, .note { position: absolute; z-index: 1; }
   .end {
     width: 10px; height: 10px; margin: -5px 0 0 -5px;
     border-radius: 50%; background: var(--highlight);
     box-shadow: 0 0 0 5px var(--highlight-soft);
-    opacity: 0; animation: fade 0.4s 1.9s ease forwards;
+    opacity: 0; animation: fade 0.25s 0.85s ease forwards;
   }
   .note {
     right: 0; transform: translate(0, -180%);
     font-size: var(--step--1); color: var(--highlight); font-weight: 600;
-    opacity: 0; animation: fade 0.4s 2s ease forwards; z-index: 1;
+    opacity: 0; animation: fade 0.25s 0.9s ease forwards; z-index: 1;
   }
   .xaxis {
     display: flex; justify-content: space-between; list-style: none;
