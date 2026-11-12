@@ -117,7 +117,7 @@ export const site = {
 
   /** KPI tiles in the hero panel. Keep values short. */
   kpis: [
-    { value: "3+", unit: "yrs", label: "Hands-on data work" },
+    { value: "3+", unit: "yrs", label: "Years of data work" },
     { value: "16", unit: "mo", label: "Software eng. internship" },
     { value: "04", unit: "", label: "Certifications earned" },
     { value: "40+", unit: "", label: "Staff supported" },
@@ -128,7 +128,7 @@ export const site = {
     photo: "photo.jpg",
     photoAlt: "Portrait of Antony N. Kinuthia, smiling, wearing a navy polo shirt",
     paragraphs: [
-      "I'm a Data Analyst with a Computer Science degree from Daystar University and hands-on experience building business solutions on clients' operational and financial data.",
+      "I'm a Data Analyst with a Computer Science degree from Daystar University and real-world experience building business solutions on clients' operational and financial data.",
       "As a Software Engineering Intern at Premier Analytics I worked with Microsoft Power Platform and Dynamics 365 Business Central, where I saw how much value sits in data that companies already collect. Now I focus on the analysis: cleaning messy datasets, asking the right questions with SQL and pandas, and presenting answers clearly.",
       "Since 2023 I've also done freelance AI data work: transcribing and labelling speech data in English and Swahili, masking personal information to GDPR/HIPAA standards, and scoring LLM responses against quality rubrics. It taught me that the quality of an analysis depends on the data underneath it.",
       "Outside of client work I build products (Nestly) and automation (VideoToClips), and I run two YouTube channels.",

@@ -12,7 +12,9 @@ Astro (static output), plain CSS, about 1 KB of JS (theme toggle only).
 - A link whose `href` is `"TODO"` or empty is shown as a placeholder, not a broken link.
 - **Case study chart:** put the image (png/jpg/webp/avif, about 1600×1000) in `src/assets/projects/`
   and set `image: "your-file.png"` plus a real `imageAlt`. Astro generates AVIF/WebP sizes automatically.
-- **CV:** replace `public/cv.pdf` with your real CV (keep the name).
+- **CV:** edit `cv/cv.html`, then run `npm run cv` to regenerate `public/cv.pdf` (uses Chrome or Edge
+  in headless mode; set `CHROME_PATH` if it isn't found). Keep it one column so ATS systems parse it.
+  Don't add phone numbers or referee contact details: this file is public.
 - **Open Graph image / favicons:** edit the `og` block in `site.ts`, then run `npm run assets`
   to regenerate `public/og.png`. Placeholder charts and the CV are only generated if missing,
   so your real files are never overwritten.

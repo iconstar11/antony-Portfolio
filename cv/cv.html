@@ -1,0 +1,188 @@
+<!doctype html>
+<!--
+  Public CV source. Edit this file, then run:  npm run cv
+  That prints it to public/cv.pdf (needs Chrome or Edge installed).
+  Keep it single-column with plain headings so ATS systems parse it cleanly.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Antony N. Kinuthia, Data Analyst, CV</title>
+<meta name="author" content="Antony N. Kinuthia">
+<meta name="description" content="CV of Antony N. Kinuthia, Data Analyst (Python, SQL, Excel)">
+<style>
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+    font-weight: 400 900;
+  }
+  @page { size: A4; margin: 15mm 16mm 14mm; }
+  :root { --ink: #16191d; --muted: #4f5761; --accent: #0b7354; --rule: #d9d6cd; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0; color: var(--ink);
+    font-family: "Schibsted Grotesk", "Segoe UI", Arial, sans-serif;
+    font-size: 9.6pt; line-height: 1.42;
+  }
+  h1 { margin: 0; font-size: 21pt; letter-spacing: -0.02em; line-height: 1.1; }
+  .headline { margin: 2pt 0 5pt; font-size: 11pt; font-weight: 600; color: var(--accent); }
+  .contact { margin: 0; color: var(--muted); font-size: 9pt; }
+  .contact a, .contact span { color: inherit; text-decoration: none; white-space: nowrap; }
+  header { padding-bottom: 7pt; border-bottom: 2pt solid var(--ink); }
+  h2 {
+    margin: 11pt 0 4pt; padding-bottom: 2pt;
+    font-size: 9.5pt; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); border-bottom: 0.75pt solid var(--rule);
+    break-after: avoid;
+  }
+  p { margin: 0; }
+  .role { margin-top: 6pt; break-inside: avoid; }
+  .role-head { display: flex; justify-content: space-between; gap: 12pt; }
+  .role-title { font-weight: 650; }
+  .when { white-space: nowrap; color: var(--muted); }
+  .org { color: var(--muted); }
+  ul { margin: 2pt 0 0; padding-left: 12pt; }
+  li { margin: 1.2pt 0; }
+  li::marker { color: var(--accent); }
+  .skills p { margin: 1.5pt 0; }
+  .skills b, .certs b { font-weight: 650; }
+  .certs li { list-style: none; margin-left: -12pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Antony N. Kinuthia</h1>
+  <p class="headline">Data Analyst | Python · SQL · Excel</p>
+  <p class="contact">
+    <span>Nairobi, Kenya</span> ·
+    <a href="mailto:antony@nestlyafrica.cloud">antony@nestlyafrica.cloud</a> ·
+    <a href="https://antonykinuthia.nestlyafrica.cloud">antonykinuthia.nestlyafrica.cloud</a>
+  </p>
+  <p class="contact">
+    <a href="https://www.linkedin.com/in/antony-kinuthia-210296239/">linkedin.com/in/antony-kinuthia-210296239</a> ·
+    <a href="https://github.com/iconstar11">github.com/iconstar11</a>
+  </p>
+</header>
+
+<h2>Summary</h2>
+<p>
+  Data Analyst with a Computer Science degree and a software engineering background. At Premier Analytics I built
+  Dataverse databases and Python workflows that consolidated records across business units with zero data loss, and
+  wrote validation scripts that kept duplicate and malformed entries out of the data. Since 2023 I have also prepared
+  and quality-checked AI training data: transcribing and labelling speech, masking personal information to GDPR and
+  HIPAA standards, and scoring LLM output against rubrics. I work in Python, SQL and Excel, and I make sure the data is
+  right before drawing conclusions from it.
+</p>
+
+<h2>Experience</h2>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">Software Engineering Intern</span><span class="when">Apr 2025 – Jul 2026</span></div>
+  <p class="org">Premier Analytics · Nairobi, Kenya</p>
+  <ul>
+    <li>Built information management portals and Dataverse databases on Microsoft Power Platform, bringing records from several departments into structured relational tables.</li>
+    <li>Wrote Python data operations and automated workflows that consolidated information across business units with zero data loss.</li>
+    <li>Designed input validation rules and error-checking scripts that stopped duplicate and malformed entries before they reached the database.</li>
+    <li>Worked with project supervisors to replace paper and spreadsheet processes with digital forms, automated status alerts and reporting dashboards.</li>
+    <li>Ran schema validations, quality checks and error audits in sandbox environments before each production rollout.</li>
+    <li>Set up role-based access and row-level security with Entra ID to protect sensitive records.</li>
+    <li>Supported more than 40 staff with system access, portal troubleshooting and written user guides.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">AI Data Annotation &amp; Speech Specialist (Freelance)</span><span class="when">Jan 2023 – Present</span></div>
+  <p class="org">Upwork · Remote</p>
+  <ul>
+    <li>Transcribe multi-speaker and noisy call-centre audio into clean, structured text that follows strict formatting standards.</li>
+    <li>Align speaker turns to millisecond timestamps, mark overlapping speech and tag non-verbal events such as crosstalk and background noise.</li>
+    <li>Identify and mask personal information (names, phone numbers, financial and medical details) across text and audio, in line with GDPR and HIPAA.</li>
+    <li>Rank AI-generated responses for LLM fine-tuning on accuracy, reasoning, safety and instruction following, and label intents, entities and sentiment in multi-turn conversations.</li>
+    <li>Record bilingual English–Swahili conversational speech for banking, healthcare, customer service and technical support datasets.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">ICT Support Technician &amp; Systems Consultant (Part-time)</span><span class="when">Jan 2023 – Mar 2025</span></div>
+  <p class="org">Small business and individual clients · Nairobi &amp; Kiambu, Kenya</p>
+  <ul>
+    <li>Set up and repaired hardware, Ubuntu and Windows systems, and local networks (routers, DHCP, Ethernet, Wi-Fi repeaters).</li>
+    <li>Created local and external backup routines that protected accounting records and business files from hardware failure.</li>
+    <li>Trained owners and staff on digital tools, file organisation and safe password habits.</li>
+  </ul>
+</div>
+
+<h2>Projects</h2>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">VideoToClips &amp; SongToTube: automated media and transcription pipelines</span><span class="when">Python · SQLite · FFmpeg</span></div>
+  <ul>
+    <li>Built Python pipelines that ingest, preprocess and transcribe audio and video with the OpenAI Whisper API and FFmpeg, exporting structured JSON metadata.</li>
+    <li>Wrote millisecond timestamp alignment logic to keep audio segments in sync with the transcript.</li>
+    <li>Tracked job state and errors in SQLite (SQLAlchemy ORM) with atomic writes and recovery, so interrupted batches lose no data.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">Power Pages Proposal Portal</span><span class="when">Power Platform · Dataverse</span></div>
+  <ul>
+    <li>Built a portal where external contractors submit proposals, upload documents and check review status.</li>
+    <li>Designed Dataverse tables, relationships and status fields that keep records organised and prevent orphaned files; wrote FetchXML queries and Liquid templates so each contractor sees only their own submissions.</li>
+    <li>Added client-side JavaScript validation for required fields and file formats, cutting down incomplete submissions.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">Workflow automation on Linux VMs</span><span class="when">Ubuntu · n8n · REST APIs</span></div>
+  <ul>
+    <li>Configured self-hosted n8n on Ubuntu virtual machines to connect webhooks, database updates and notification alerts, with Bash scripts and CLI wrappers to manage API credentials and rate limits.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head"><span class="role-title">Nestly</span><span class="when">nestlyafrica.cloud</span></div>
+  <ul>
+    <li>Property websites for short-stay hosts.</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<div class="skills">
+  <p><b>Data analysis:</b> Python (pandas, NumPy), SQL, Excel (data modelling, lookup functions, pivot tables, data validation), statistics, data cleaning, data visualisation</p>
+  <p><b>Databases:</b> SQLite, Microsoft Dataverse, SQLAlchemy, Firebase, relational schema design, query optimisation</p>
+  <p><b>Platforms:</b> Microsoft Power Platform (Power Apps, Power Pages, Power Automate), Dynamics 365 Business Central (AL), FetchXML</p>
+  <p><b>Data quality &amp; AI data:</b> PII masking (GDPR, HIPAA), transcription, speaker diarization, RLHF rubric evaluation</p>
+  <p><b>Programming &amp; tools:</b> JavaScript, TypeScript, REST APIs, JSON, Bash, Linux (Ubuntu), n8n, OpenAI Whisper API, FFmpeg</p>
+  <p><b>Languages:</b> English (fluent), Swahili (native), German</p>
+</div>
+
+<h2>Education</h2>
+<div class="role">
+  <div class="role-head"><span class="role-title">BSc Computer Science</span><span class="when">Aug 2021 – Apr 2025</span></div>
+  <p class="org">Daystar University · Athi River, Kenya</p>
+  <ul>
+    <li>Coursework: Database Systems, Data Structures &amp; Algorithms, Object-Oriented Programming (Python, C++), Software Engineering, Information Security.</li>
+    <li>Capstone: a database-backed web application with user authentication, role-based permissions and dynamic reporting.</li>
+  </ul>
+</div>
+<div class="role">
+  <div class="role-head"><span class="role-title">Kenya Certificate of Secondary Education (KCSE), Grade B+</span><span class="when">2016 – 2019</span></div>
+  <p class="org">Githiga High School · Kiambu, Kenya</p>
+</div>
+
+<h2>Certifications</h2>
+<ul class="certs">
+  <li><b>Introduction to Data and Data Science</b>, 365 Data Science <span class="when">· Nov 2026</span></li>
+  <li><b>Data Analyst Career Track</b>, 365 Data Science <span class="when">· In progress</span></li>
+  <li><b>Supervised Machine Learning: Regression and Classification</b>, DeepLearning.AI &amp; Stanford <span class="when">· Aug 2024</span></li>
+  <li><b>Microsoft Excel Certification</b>: data modelling, lookup functions, pivot tables, spreadsheet automation</li>
+  <li><b>Linux Operating System (Foundation)</b>, StudySection <span class="when">· Jun 2021</span></li>
+</ul>
+
+<h2>References</h2>
+<p>Available on request.</p>
+
+</body>
+</html>

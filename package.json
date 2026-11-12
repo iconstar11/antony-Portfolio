@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "assets": "node scripts/make-assets.mjs",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name portfolio"
+    "deploy": "npm run build && wrangler pages deploy dist --project-name portfolio",
+    "cv": "node scripts/build-cv.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
