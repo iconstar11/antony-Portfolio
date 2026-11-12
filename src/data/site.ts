@@ -138,7 +138,7 @@ export const site = {
       { label: "Core stack", value: "Python · SQL · Excel" },
       { label: "Degree", value: "BSc Computer Science, 2025" },
       { label: "Background", value: "Software engineering" },
-      { label: "Languages", value: "English · Swahili · German" },
+      { label: "Languages", value: "English · Swahili · German (A2)" },
     ],
   },
 
